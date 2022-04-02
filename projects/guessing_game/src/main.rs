@@ -40,7 +40,10 @@ fn main() {
         //The `parse` method parses a string into come kind of number. 
         // The colon `:` after guess tell rust we'll annotate the variable's type 
         // `u32` is an usigned 32-bit integer
-        let guess: u32 = guess.trim().parse().expect("Please type a number!");
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
         // {} is placehoder to fill the variable value
         println!("You guessed:{}",guess);
 
