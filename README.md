@@ -95,6 +95,7 @@ In order tor know some repos implemented in Rust, I start to learn Rust in the C
 ### Tutorials
 - [The Rust Programming Language](https://doc.rust-lang.org/book/title-page.html) 
 - [Rust By Example](https://doc.rust-lang.org/book/title-page.html)
+- [The Cago Book](https://doc.rust-lang.org/cargo/index.html): A book about Cargo from official
 
 ### Code an Tools
 - [Crates.io](https://crates.io/): is where people in the Rust ecosystem post their open source Rust projects for others to use
