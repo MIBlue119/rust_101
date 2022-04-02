@@ -69,7 +69,32 @@ In order tor know some repos implemented in Rust, I start to learn Rust in the C
     $cd someproject
     $cargo build 
     ```
-
+- Use an external crate to get mode functionality
+    - `Crate`: a collection of Rust source code files. 
+        - We could ues some crates at [Crates.io](https://crates.io/)
+        - We need to add the `crate` at your `Cargo.toml` `[dependencies]` 
+            - Tell the Cargo which external crates your project depend on 
+            - You have to fill the crate's version 
+            ```
+            [dependencies]
+            rand = "0.8.4" # Add the dependency library to build random numbers
+            #The number 0.8.3 is actually shorthand for ^0.8.3, which means any version that is at least 0.8.3 but below 0.9.0. Cargo considers these versions to have public APIs compatible with version 0.8.3, 
+            #and this specification ensures you’ll get the latest patch release that will still compile with the code in this chapter. 
+            ```
+        - `Crago` checks `[dependencies]` and fetches the latest versions of dependency needs from the registry
+    - Update a `Crate` to get a new version
+        ```
+        $cargo update 
+        ```
+- Create the documentation provided by all of your dependencies 
+    ```
+    $cargo doc --open
+    ```
 ## Resources
+
+### Tutorials
 - [The Rust Programming Language](https://doc.rust-lang.org/book/title-page.html) 
 - [Rust By Example](https://doc.rust-lang.org/book/title-page.html)
+
+### Code an Tools
+- [Crates.io](https://crates.io/): is where people in the Rust ecosystem post their open source Rust projects for others to use
