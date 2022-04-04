@@ -12,7 +12,7 @@ fn main() {
     println!("{:?}", args);
 
     //Declare variable to get the cli arguments vector value
-    let config= parse_config(&args);
+    let config= Config::new(&args);
     println!("Searching for {}", config.query);
     println!("File: {}",config.file);
 
@@ -27,11 +27,13 @@ struct Config{
     file: String
 }
 
-fn parse_config(args: &[String]) -> Config{
-    //Declare variable to get the cli arguments vector value
-    let query = args[1].clone();
-    let file = args[2].clone();
+impl Config{
+    fn new(args: &[String])->Config{
+        //Declare variable to get the cli arguments vector value
+        let query = args[1].clone();
+        let file = args[2].clone();
 
-    Config{query, file}
+        Config{query, file}
 
+    }
 }
