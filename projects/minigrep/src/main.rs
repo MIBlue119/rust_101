@@ -20,9 +20,7 @@ fn main() {
     println!("Searching for {}", config.query);
     println!("File: {}",config.file);
 
-    let contents = fs::read_to_string(config.file)
-                    .expect("Something wrong when read file");
-    println!("With text: \n{}",{contents});
+    load_file(config);
 
 }
 
@@ -43,4 +41,10 @@ impl Config{
         Ok(Config{query, file})
 
     }
+}
+
+fn load_file(config: Config){
+    let contents = fs::read_to_string(config.file)
+                    .expect("Something wrong when read file");
+    println!("With text: \n{}",{contents});
 }
