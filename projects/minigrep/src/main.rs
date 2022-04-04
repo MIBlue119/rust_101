@@ -1,6 +1,7 @@
 use std::env;
 use std::fs;
 use std::process;
+use std::error::Error;
 
 fn main() {
     /*
@@ -20,7 +21,17 @@ fn main() {
     println!("Searching for {}", config.query);
     println!("File: {}",config.file);
 
-    load_file(config);
+    /*
+    use if let rather than unwrap_or_else to check whether run returns an Err value 
+    and call process::exit(1) if it does. The run function doesn’t return a value 
+    that we want to unwrap in the same way that Config::new returns the Config instance.
+    Because run returns () in the success case, we only care about detecting an error,
+    so we don’t need unwrap_or_else to return the unwrapped value because it would only be ().    
+    */
+    if let Err(e) = load_file(config){
+        println!("Application error: {}",e);
+        process::exit(1);
+    }
 
 }
 
@@ -43,8 +54,8 @@ impl Config{
     }
 }
 
-fn load_file(config: Config){
-    let contents = fs::read_to_string(config.file)
-                    .expect("Something wrong when read file");
+fn load_file(config: Config) -> Result<(), Box<dyn Error> >{
+    let contents = fs::read_to_string(config.file)?;
     println!("With text: \n{}",{contents});
+    Ok(())
 }
