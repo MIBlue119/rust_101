@@ -69,6 +69,10 @@ In order tor know some repos implemented in Rust, I start to learn Rust in the C
     $cd someproject
     $cargo build 
     ```
+- How to activate test block code?
+    ```
+    $cargo test
+    ```
 - Use an external crate to get mode functionality
     - `Crate`: a collection of Rust source code files. 
         - We could ues some crates at [Crates.io](https://crates.io/)
