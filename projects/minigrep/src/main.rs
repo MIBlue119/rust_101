@@ -1,5 +1,6 @@
 use std::env;
 use std::fs;
+use std::process;
 
 fn main() {
     /*
@@ -12,7 +13,10 @@ fn main() {
     println!("{:?}", args);
 
     //Declare variable to get the cli arguments vector value
-    let config= Config::new(&args);
+    let config= Config::new(&args).unwrap_or_else(|err| {
+        println!("Problem parsing arguments: {}",err);
+        process::exit(1);
+    });
     println!("Searching for {}", config.query);
     println!("File: {}",config.file);
 
@@ -28,12 +32,15 @@ struct Config{
 }
 
 impl Config{
-    fn new(args: &[String])->Config{
+    fn new(args: &[String])-> Result<Config, &'static str>{
+        if args.len() <3 {
+            return Err("Not enough arguments.")
+        }
         //Declare variable to get the cli arguments vector value
         let query = args[1].clone();
         let file = args[2].clone();
 
-        Config{query, file}
+        Ok(Config{query, file})
 
     }
 }
