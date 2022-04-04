@@ -1,7 +1,6 @@
 use std::env;
-use std::fs;
 use std::process;
-use std::error::Error;
+use minigrep::{Config, load_file};
 
 fn main() {
     /*
@@ -28,34 +27,10 @@ fn main() {
     Because run returns () in the success case, we only care about detecting an error,
     so we don’t need unwrap_or_else to return the unwrapped value because it would only be ().    
     */
-    if let Err(e) = load_file(config){
+    if let Err(e) =load_file(config){
         println!("Application error: {}",e);
         process::exit(1);
     }
 
 }
 
-struct Config{
-    query: String,
-    file: String
-}
-
-impl Config{
-    fn new(args: &[String])-> Result<Config, &'static str>{
-        if args.len() <3 {
-            return Err("Not enough arguments.")
-        }
-        //Declare variable to get the cli arguments vector value
-        let query = args[1].clone();
-        let file = args[2].clone();
-
-        Ok(Config{query, file})
-
-    }
-}
-
-fn load_file(config: Config) -> Result<(), Box<dyn Error> >{
-    let contents = fs::read_to_string(config.file)?;
-    println!("With text: \n{}",{contents});
-    Ok(())
-}
