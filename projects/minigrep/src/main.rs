@@ -12,13 +12,21 @@ fn main() {
     println!("{:?}", args);
 
     //Declare variable to get the cli arguments vector value
-    let query = &args[1];
-    let file = &args[2];
+    let (query, file) = parse_config(&args);
     println!("Searching for {}", query);
     println!("File: {}",file);
 
     let contents = fs::read_to_string(file)
                     .expect("Something wrong when read file");
     println!("With text: \n{}",{contents});
+
+}
+
+fn parse_config(args: &[String]) -> (&str, &str){
+    //Declare variable to get the cli arguments vector value
+    let query = &args[1];
+    let file = &args[2];
+
+    (query, file)
 
 }
