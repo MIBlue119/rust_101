@@ -94,6 +94,9 @@ In order tor know some repos implemented in Rust, I start to learn Rust in the C
     ```
     $cargo doc --open
     ```
+## Others
+- `mod.rs` is like `__init__.py` in the python project
+    - The complier would seem the folder with the file `mode.rs` as a module.
 ## Resources
 
 ### Tutorials
