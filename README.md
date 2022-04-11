@@ -4,10 +4,14 @@ In order tor know some repos implemented in Rust, I start to learn Rust in the C
 
 ## Intro 
 
+- Where is Rust borned?
+    - Mozilla
+    - Mozilla use it to develop an experimental browser [`serveo`](https://servo.org/)
 - Why do we need Rust? 
     - Rust complier plays a gatekeeper role to find elusive bugs
     - It could be use at cli/ web/ DevOps tool/ embedded devices/ml/ audio analysis
     - An ahead-of time compiled language 
+    - An system language, alternative to C and C++
 - How could we install the environment to run Rust?
     - Install `rustup` at Linux/MacOS
         ```
@@ -105,7 +109,16 @@ In order tor know some repos implemented in Rust, I start to learn Rust in the C
 - [The Cago Book](https://doc.rust-lang.org/cargo/index.html): A book about Cargo from official
 - [Rustlings](https://github.com/rust-lang/rustlings): Interactive exerices according to Rust Documents's module
 - [Easy Rust](https://dhghomon.github.io/easy_rust/Chapter_6.html)
+- [A-half-hour-to-learn-rust](https://fasterthanli.me/articles/a-half-hour-to-learn-rust)
 - [Rust-Gentle-Intro](https://stevedonovan.github.io/rust-gentle-intro/readme.html)
+- [TourOfRust](https://tourofrust.com): An interactive website to learn rust
 
-### Code an Tools
+### Exercises
+- [Exercism:Rust](https://exercism.org/tracks/rust/exercises)
+### Code and Tools
 - [Crates.io](https://crates.io/): is where people in the Rust ecosystem post their open source Rust projects for others to use
+
+### Videos
+- [Rust Crash Course](https://www.youtube.com/watch?v=zF34dRivLOw)
+- [Rust Live Coding:Jon Gjengset](https://www.youtube.com/channel/UC_iD0xppBwwsrM9DegC5cQQ)
+- [Rust in Motion](https://www.manning.com/livevideo/rust-in-motion): Core rust member introduce important concepts.
