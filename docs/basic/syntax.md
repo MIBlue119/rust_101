@@ -147,3 +147,81 @@ fn name(param1: type1, ...) -> return_type{
                 - Ruby: undefined method on nil
                 - Javascript: undefined is not a function
 
+- Slices
+    - What is a slice? A data type that always `borrows` data owned by some other data structure. Borrow a chunk of data.
+        - A slice consists of a `pointer` and a `length` 
+            - The `pointer` is a reference to the start of the data that slice contains
+            - The `length` is the number of elements after the start that the slice contains
+    - How to create a slice from Strings, Vecs, or arrays?
+        - Example
+        ```
+            let a = String::from("Taiwan");
+            //Extract the position 0~4 
+            let a_slice = &a[1..4];
+        ```
+        - make a slice borrows all of the data: two dots `..` at square brackets. 
+        - The borrow checker ensures slices are always valid. At runtime, Rust will panic and stop your program if slice indices are out of bounds.
+        - Rust can't prove the slice indices are valid at compile time.
+            - It checks the slice indices at runtime and deliberately terminated the program if they're invald.
+
+    - String slices have additional protection 
+        - The indices of the slice range must be at valid `Unicode` character boundaries
+            - Example: Have a string literal containing emogi and attempt to create slice from 0 to 1. this also compiles. 
+               When we run the program, it panics with the error message `byte index 1 is not a char boundry` 
+                - `thread 'main' panicked at 'byte index 1 is not a char boundary; it is inside '😀' (bytes 0..4) of `😀👹🫁🙇`', src/main.rs:3:20`
+               ```
+                let s ="😀👹🫁🙇";
+                let s_slice = &s[0:1];
+                println!("s_slice is {}", s_slice);
+
+               ```
+               - Consider using methods on `String` like `chars` or `char_indices` rather than slicing at arbitrary indices
+    
+    - Why use slices as a parameters? Flexibility
+        - give callers more flexibility and means functions can be used in more contexts
+        - Example:
+        ```
+        fn main(){
+            let a = [1,2,4];
+            let v = vec![6,7,9];
+            let v_slice=&v[..];
+
+            only_reference_to_array(&a);
+            only_reference_to_vec(&v);
+            //This function can be called with some number of i32 values borrowed from either an array or a vector.
+            //It can even be called with a slice of a slice.
+            reference_to_array_or_vec(&a[..]);
+            reference_to_array_or_vec(&v[..]);
+            reference_to_array_or_vec(&v_slice[0..1]);
+        }
+
+        fn only_reference_to_array(param: &[i32; 3]){
+            println!("This is an array {:?}", param);
+        }
+
+        fn only_reference_to_vec(param: &Vec<i32>){
+            println!("This is an vector {:?}", param);
+        }
+        fn reference_to_array_or_vec(param: &[i32] ){
+            println!("This is a slice {:?}", param);
+        }
+        ```
+        - Similarly, specifying `string slices` as parameters rather than borrowing an owned `String`, functions can accept either borrowed strings and string literas. String literals can create string slices.
+        ```
+        fn main(){
+            let s = String::from("Hello");
+            let string_literal ="hello";
+
+            either_string_or_literal(&s);
+            either_string_or_literal(&string_literal);
+
+        }
+        fn either_string_or_literal(param: &str){
+            println!("this is a string slice: {:?}", param);
+        }
+        ```
+    - How does `&String` become &str? Deref trait & deref coercion
+        - [Deref trait](https://doc.rust-lang.org/std/ops/trait.Deref.html)
+        - Rust feature `deref coercion`: when we call a function or method, the compiler will automaticalling deference the arguments.
+          If need, it would convert them to match the function parameter type.
+        
