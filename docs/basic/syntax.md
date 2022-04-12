@@ -224,4 +224,66 @@ fn name(param1: type1, ...) -> return_type{
         - [Deref trait](https://doc.rust-lang.org/std/ops/trait.Deref.html)
         - Rust feature `deref coercion`: when we call a function or method, the compiler will automaticalling deference the arguments.
           If need, it would convert them to match the function parameter type.
-        
+
+- Borrowing and Mutability 
+    - How to create and use a mutable reference: `&mut`
+        ```
+        $let mut x=5;
+        //&mut x 
+        ```
+        - In functions
+        - In first parameters of methods
+            - Example  
+            ```
+            #[derive(Debug)]
+            struct CarPool{
+                passengers: Vec<String>,
+            }
+
+            impl CarPool{
+                ///Add the named passenger to the carpool
+                //we could add `&mut self` to let modify the current instance
+                fn pick_up(&mut self, name: String){
+                    self.passengers.push(name);
+                }
+            }
+
+            fn main() {
+                let mut monday_car_pool = CarPool{
+                    passengers: vec![],
+                };
+                monday_car_pool.pick_up(String::from("Jake"));
+                println!("Carpool state: {:?}", monday_car_pool);
+                monday_car_pool.pick_up(String::from("Welly"));
+                println!("Carpool state: {:?}", monday_car_pool);
+
+            }
+            ```
+    - Borrowing Rules involving mutability 
+        - You may have either
+            - Many immutable references
+            - One mutable reference is allowed at a time 
+    - Example of a problem prevented by the borrowing rules 
+        - we cannot borrow `list` as mutable because it is also borrowed as immutable.
+        - The immutable borrow of list occurs in the for loop, and the mutable borrow of list occurs when we call `list.push`
+            ```
+            // The real problem has to do with the management of the memory backing the vector,
+            // which looks something like this.
+            // Here's the immutable borrow that the for loop takes and the mutable borrow that the push method takes. When you have a mutable borrow,
+            // one of the aspects of the vector's data structure that could change is the pointer to the heap data.
+            // If the vector has been filled to capacity,
+            // and we call push to add a new value,
+            // the implementation of push may need to allocate more memory, and change the pointer to point to the new storage location.
+            // At this point,
+            // the immutable reference that the for loop has to the vector now points to invalid memory.
+            // This is memory unsafety that could cause seg faults,
+            // but the Rust compiler prevents that. This particular bug is called iterator invalidation and is a problem in many languages,
+            // but not in Rust. 
+            fn main(){
+                let mut list = vec![1,2,3];
+                for i in &list{
+                    println!("i is {}",i);
+                    list.push(i+1);
+                }
+            }
+            ```
