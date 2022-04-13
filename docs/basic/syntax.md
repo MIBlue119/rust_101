@@ -287,3 +287,52 @@ fn name(param1: type1, ...) -> return_type{
                 }
             }
             ```
+- Borrowing code patterns 
+    - `Borrow at same time`: that means they're in the same lexical scope created by curly brackets.
+    - Other example
+        ```
+        fn main(){
+            let mut list = vec![1,2,3];
+            // The mutable borrow would only lasts for the single expression 
+            *list.first_mut().expect("list was empty")+=1;
+            // The mutable borrow ends right away
+
+            // The immutable borrows start
+            let list_first = list.first();
+            let list_last = list.last();
+
+            println!(
+                "The first element is {:?} and the last is {:?}", 
+                list_first, 
+                list_last 
+            );
+        }//The immutable borrows ends 
+        ```
+    - Common code patterns in Rust because of the borrowing rules 
+        - New scopes: add `inner scope` before outer scope to tell Rust we're done with the borrows
+            ```
+                fn main(){
+                    let mut list = vec![1,2,3];
+
+                    {// The immutable borrows start
+                        let list_first = list.first();
+                        let list_last = list.last();
+
+                        println!(
+                            "The first element is {:?} and the last is {:?}", 
+                            list_first, 
+                            list_last 
+                        );
+                     // The immutable borrow ends here   
+                    }
+                    //Due to the innerscope, mutable borrow could start to borrow at here
+                    // The mutable borrow would only lasts for the single expression 
+                    *list.first_mut().expect("list was empty")+=1;
+                    // The mutable borrow ends right away
+                }                
+            ``` 
+        - Temporary variables 
+            - please see example projects [tempoary_var_borrow](../../projects/tempoary_var_borrow/src/main.rs)
+        - Entry API
+            - `HashMap`
+        - Splitting up structs
