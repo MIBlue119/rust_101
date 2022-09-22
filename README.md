@@ -17,7 +17,7 @@ In order tor know some repos implemented in Rust, I start to learn Rust in the C
         ```
         $curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
         ```
-    - Update 
+    - Update rust
         ```
         $rustup update
         ```
@@ -59,7 +59,7 @@ In order tor know some repos implemented in Rust, I start to learn Rust in the C
         ```
         $cargo buld --release
         ```
-    -Build and Run the project
+    - Build and Run the project
         ```
         $cargo run 
         ```
@@ -73,6 +73,10 @@ In order tor know some repos implemented in Rust, I start to learn Rust in the C
     $cd someproject
     $cargo build 
     ```
+    - Update `Cargo` version
+        ```
+        $cargo install cargo-update 
+        ```
 - How to activate test block code?
     ```
     $cargo test
