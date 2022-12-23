@@ -116,7 +116,7 @@ In order tor know some repos implemented in Rust, I start to learn Rust in the C
 - [A-half-hour-to-learn-rust](https://fasterthanli.me/articles/a-half-hour-to-learn-rust)
 - [Rust-Gentle-Intro](https://stevedonovan.github.io/rust-gentle-intro/readme.html)
 - [TourOfRust](https://tourofrust.com): An interactive website to learn rust
-
+- [Comprehensive Rust](https://google.github.io/comprehensive-rust/structure.html): Google's 4 day rust lectures
 ### Exercises
 - [Exercism:Rust](https://exercism.org/tracks/rust/exercises)
 ### Code and Tools
